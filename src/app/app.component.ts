@@ -69,7 +69,7 @@ export class AppComponent {
     this.film =[];
     this.backimg = "../assets/Images/loading.png";
     this.mindtrick.getCharacters(this.val[this.selectval]['url']).subscribe(function(x){
-    this.film = this.filmarray(x);
+    this.filmarray(x);
     this.backimg = "../assets/Images/"+this.image[this.selectval][this.val[this.selectval]['name']]+".jpg";
     }.bind(this),
     function(err){
@@ -83,7 +83,17 @@ export class AppComponent {
   }
 
   filmarray(x){
-    this.mindtrick.getFilms(x['films']).subscribe(x=>this.film=x);
+    this.mindtrick.getFilms(x['films']).subscribe(function(x){
+      this.film = x;
+    }.bind(this),
+    function(err){
+      console.log(err);
+      if(err["status"]=='404'){
+        this.backimg = "../assets/Images/error404.png"      
+      }else{
+        this.backimg = "../assets/Images/error.jpg"
+      }
+    }.bind(this));
   }
 
 }
