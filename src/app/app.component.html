@@ -1,0 +1,27 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="image" [style.background-image]="'url('+backimg+')'">
+  <div class="container-fluid"  style="text-align: center">
+    <h1>Star Wars</h1>
+  </div>
+  <br>
+  <div class="container"  [style.background-image]="'url('+backimg+')'">
+      <h5>Choose your Character: 
+      <select [(ngModel)] = "selectval" (change)="films()" class="dropdown">
+      <option *ngFor="let varis of val; let i = index" value={{i}} selected="false">{{varis.name}}</option>
+    </select></h5>
+    <br>
+    <table  class="table" >
+      <thead>
+        <th>Release Date</th>
+        <th>Title</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mov of film| orderBy : 'release_date'">
+          <td >{{mov.release_date|date:'fullDate'}}</td>
+          <td >{{mov.title}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<router-outlet></router-outlet>
